@@ -1,23 +1,42 @@
 import Banner from "./components/Banner";
 import Navbar from "./components/Navbar";
-import Row from "./components/Row";
-import requests from "./requests";
+import Movies from "./components/Movies";
+import MyList from "./components/MyList";
+import Explore from "./components/Explore";
+import Profile from "./components/Profile";
+import MovieDetails from "./components/MovieDetails";
+import MovieSearch from "./components/MovieSearch";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const App = () => {
   return (
-    <div className="bg-personalblack select-none font-karla">
-      <Banner />
-      <div className="pl-4 pb-20">
-        <Row title='Trending' fetchUrl={requests.fetchTrending} />
-        <Row title='Action' fetchUrl={requests.fetchActionMovies} />
-        <Row title='Comedy' fetchUrl={requests.fetchComedyMovies} />
-        <Row title='Horror' fetchUrl={requests.fetchHorrorMovies} />
-        <Row title='Romance' fetchUrl={requests.fetchRomanceMovies} />
-        <Row title='Documentaries' fetchUrl={requests.fetchHorrorMovies} />
-      </div>
-      <Navbar />
-    </div>
-  )
-}
+    <Router>
+      <Switch>
+        <>
+          <Route exact path="/search/:movieName">
+            <MovieSearch />
+          </Route>
+          <Route exact path="/title/:movieId">
+            <MovieDetails />
+          </Route>
+          <Route path="/mylist">
+            <MyList />
+          </Route>
+          <Route path="/explore">
+            <Explore />
+          </Route>
+          <Route path="/profile">
+            <Profile />
+          </Route>
+          <Route exact path="/">
+            <Banner />
+            <Movies />
+          </Route>
+          <Navbar />
+        </>
+      </Switch>
+    </Router>
+  );
+};
 
 export default App;
